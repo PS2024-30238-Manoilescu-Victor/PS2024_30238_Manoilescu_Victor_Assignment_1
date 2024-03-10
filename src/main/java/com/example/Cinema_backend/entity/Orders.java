@@ -3,6 +3,7 @@ package com.example.Cinema_backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,13 +12,16 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor //
 @NoArgsConstructor //
-@Table(name = "order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
+    @Column
+    private String dataComanda;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -28,7 +32,7 @@ public class Order {
             name = "ordered_Tickets",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "ticket_id"))
-    private Set<Ticket> tickets;
+    private List<Ticket> tickets;
 
 
 

@@ -2,10 +2,9 @@ package com.example.Cinema_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
-import java.util.List;
 import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter //
@@ -36,6 +35,6 @@ public class Person {
     @Column
     private Boolean isAdmin;
     @OneToMany
-    private Set<Order> orders;
+    private List<Orders> orders;
 
 }

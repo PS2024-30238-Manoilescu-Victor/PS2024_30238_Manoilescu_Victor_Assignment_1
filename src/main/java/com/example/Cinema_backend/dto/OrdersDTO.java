@@ -13,9 +13,10 @@ import java.util.Set;
 @Setter //
 @AllArgsConstructor //
 @NoArgsConstructor //
-public class OrderDTO {
+public class OrdersDTO {
 
     private Long id;
+    private String dataComanda;
     private Person person;
     private Set<Ticket> tickets;
 

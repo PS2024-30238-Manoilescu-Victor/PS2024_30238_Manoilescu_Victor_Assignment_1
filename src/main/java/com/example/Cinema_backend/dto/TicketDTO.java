@@ -1,8 +1,6 @@
 package com.example.Cinema_backend.dto;
 
-import com.example.Cinema_backend.entity.Order;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
+import com.example.Cinema_backend.entity.Orders;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,7 @@ public class TicketDTO {
     private String data;
     private String ora;
     private Integer nrTickets;
-    private Set<Order> orders;
+    private Set<Orders> orders;
 
 
 }

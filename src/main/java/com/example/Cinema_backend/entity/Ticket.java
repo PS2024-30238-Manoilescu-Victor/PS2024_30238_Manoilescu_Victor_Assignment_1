@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter //
@@ -31,7 +32,7 @@ public class Ticket {
     @Column
     private Integer nrTickets;
     @ManyToMany(mappedBy = "tickets")
-    private Set<Order> orders;
+    private List<Orders> orders;
 
 
 }
