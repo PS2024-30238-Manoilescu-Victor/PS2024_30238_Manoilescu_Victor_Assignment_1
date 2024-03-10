@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Getter //
 @Setter //
@@ -32,5 +35,7 @@ public class Person {
     private String nrTelefon;
     @Column
     private Boolean isAdmin;
+    @OneToMany
+    private Set<Order> orders;
 
 }

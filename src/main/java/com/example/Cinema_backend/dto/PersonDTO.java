@@ -1,11 +1,14 @@
 package com.example.Cinema_backend.dto;
 
+import com.example.Cinema_backend.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-    @Getter //
+import java.util.Set;
+
+@Getter //
     @Setter //
     @AllArgsConstructor //
     @NoArgsConstructor //
@@ -17,5 +20,6 @@ import lombok.Setter;
         private String email;
         private String nrTelefon;
         private Boolean isAdmin;
+        private Set<Order> orders;
 
 }

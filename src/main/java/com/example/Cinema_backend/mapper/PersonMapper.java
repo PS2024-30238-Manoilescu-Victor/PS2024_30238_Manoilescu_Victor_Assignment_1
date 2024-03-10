@@ -14,6 +14,7 @@ public class PersonMapper {
         aux.setPrenume(personDTO.getPrenume());
         aux.setNrTelefon(personDTO.getNrTelefon());
         aux.setIsAdmin(personDTO.getIsAdmin());
+        aux.setOrders(personDTO.getOrders());
         return aux;
     }
 
@@ -26,6 +27,7 @@ public class PersonMapper {
         aux.setPrenume(person.getPrenume());
         aux.setNrTelefon(person.getNrTelefon());
         aux.setIsAdmin(person.getIsAdmin());
+        aux.setOrders(person.getOrders());
         return aux;
     }
 

@@ -13,7 +13,6 @@ public interface PersonRepository extends JpaRepository<Person,Long>{ //CrudRepo
     Person findPersonByNumeAndPrenume(String nume, String prenume);
     List<Person> findByNume(String nume);
 
-
     //Person getPersonByNumeAndPrenume(String nume, String prenume);
 
 }
