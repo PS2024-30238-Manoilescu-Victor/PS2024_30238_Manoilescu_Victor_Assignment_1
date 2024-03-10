@@ -71,6 +71,20 @@ public class OrdersController {
         }
     }
 
+    @PutMapping("addTicket/{idOrder}/{idTicket}")
+    public ResponseEntity<Long> addTicketToOrder(@PathVariable Long idOrder, @PathVariable Long idTicket)
+    {
+        try {
+            Long orderID = ordersService.addTicket(idOrder, idTicket);
+            log.info("Ticket with id \"" + idTicket + "\" was added to order " + idOrder);
+            return new ResponseEntity<>(orderID, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            log.info("Ticket with id \"" + idTicket + "\" was not added to order " + idOrder + ". " + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteOrder(@PathVariable Long id)
     {

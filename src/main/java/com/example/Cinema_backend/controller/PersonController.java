@@ -73,6 +73,21 @@ public class PersonController {
         }
     }
 
+    @PutMapping("createOrder/{idPerson}/{idTicket}")
+    public ResponseEntity<Long> createOrder(@PathVariable Long idPerson, @PathVariable Long idTicket)
+    {
+        try {
+            Long orderID = personService.createOrder(idPerson, idTicket);
+            log.info("User with id \"" + idPerson + "\" created the order with id " + orderID);
+            return new ResponseEntity<>(idPerson, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            log.info("User with id \"" + idPerson + "\" didn't create an order " + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deletePerson(@PathVariable Long id)
     {

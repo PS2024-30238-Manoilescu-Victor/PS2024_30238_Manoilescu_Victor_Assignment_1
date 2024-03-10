@@ -1,5 +1,6 @@
 package com.example.Cinema_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,7 +35,8 @@ public class Person {
     private String nrTelefon;
     @Column
     private Boolean isAdmin;
-    @OneToMany
+    @OneToMany(mappedBy="person", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Orders> orders;
 
 }

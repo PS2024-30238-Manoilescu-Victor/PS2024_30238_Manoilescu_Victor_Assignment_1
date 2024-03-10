@@ -1,16 +1,21 @@
 package com.example.Cinema_backend.service;
 
+import com.example.Cinema_backend.dto.OrdersDTO;
 import com.example.Cinema_backend.dto.PersonDTO;
+import com.example.Cinema_backend.entity.Orders;
 import com.example.Cinema_backend.entity.Person;
+import com.example.Cinema_backend.entity.Ticket;
 import com.example.Cinema_backend.mapper.PersonMapper;
 import com.example.Cinema_backend.repository.PersonRepository;
+import com.example.Cinema_backend.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
+import java.util.Date;
 
 @Service
 public class PersonService {
@@ -20,6 +25,11 @@ public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    TicketRepository ticketRepository;
+    @Autowired
+    OrdersService ordersService;
 
     @Autowired
     public PersonService(PersonRepository personRepository) {
@@ -77,7 +87,51 @@ public class PersonService {
     }
 
 
+    public Long createOrder(Long idPerson,Long idTicket) throws Exception {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDateTime = dateFormat.format(currentDate);
+        Optional<Person> personOptional = personRepository.findById(idPerson);
+        if (personOptional.isPresent()) {
+            Person person = personOptional.get();
+            Optional<Ticket> ticketOptional = ticketRepository.findById(idTicket);
+            if (ticketOptional.isPresent()) {
+                //Ticket ticket = ticketOptional.get();
+                OrdersDTO aux2 = new OrdersDTO();
+                aux2.setDataComanda(currentDateTime);
+                aux2.setPerson(person);
+                Long orderId = ordersService.insert2(aux2,idTicket);
+                return orderId;
+            }
+            else {
+                throw new Exception("The ticket with id \"" + idTicket + "\" doesn't exist!");
+            }
 
+        } else {
+            throw new Exception("The person with id \"" + idPerson + "\" doesn't exist!");
+        }
+
+    }
+
+    /*public Long addOrder2(Long personId,List<Long> ticketIds) throws Exception {
+            Date currentDate = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentDateTime = dateFormat.format(currentDate);
+            Optional<Person> personOptional = personRepository.findById(personId);
+            if (personOptional.isPresent()) {
+                Person person = personOptional.get();
+                List<Orders> orders = person.getOrders();
+                for (Long id : ticketIds) {
+
+                    Orders aux = new Orders();
+
+                }
+                return personId;
+            } else {
+                throw new Exception("The person with id \"" + personId + "\" doesn't exist!");
+            }
+
+        }*/
 
 
 }

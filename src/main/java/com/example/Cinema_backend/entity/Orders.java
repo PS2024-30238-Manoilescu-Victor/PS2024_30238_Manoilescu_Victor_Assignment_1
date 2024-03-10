@@ -1,5 +1,6 @@
 package com.example.Cinema_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,9 +26,11 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
+    @JsonIgnore
     private Person person;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "ordered_Tickets",
             joinColumns = @JoinColumn(name = "order_id"),

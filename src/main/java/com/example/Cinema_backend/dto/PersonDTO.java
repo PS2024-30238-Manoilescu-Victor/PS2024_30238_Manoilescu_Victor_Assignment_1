@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter //
@@ -20,6 +21,6 @@ import java.util.Set;
         private String email;
         private String nrTelefon;
         private Boolean isAdmin;
-        private Set<Orders> orders;
+        private List<Orders> orders;
 
 }

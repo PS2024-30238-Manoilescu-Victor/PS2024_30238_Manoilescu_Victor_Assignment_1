@@ -1,5 +1,6 @@
 package com.example.Cinema_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Ticket {
     @Column
     private Integer nrTickets;
     @ManyToMany(mappedBy = "tickets")
+    @JsonIgnore
     private List<Orders> orders;
 
 
