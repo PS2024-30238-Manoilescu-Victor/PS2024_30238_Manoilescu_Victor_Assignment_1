@@ -27,6 +27,12 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Functie care returneaza un bilet cu un id dat
+     * @param id id-ul biletului returnat
+     * @return biletul cu id-ul dat
+     * @throws Exception
+     */
     public TicketDTO findTicketById(Long id) throws Exception {
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
         if (!ticketOptional.isPresent()) {
@@ -36,7 +42,11 @@ public class TicketService {
         return TicketMapper.fromTicket(ticketOptional.get());
     }
 
-
+    /**
+     * Insereaza un nou bilet
+     * @param ticketDTO biletul ce va fi inserat
+     * @return id-ul noului bilet inserat
+     */
     public Long insert(TicketDTO ticketDTO) {
         Ticket ticket = TicketMapper.toTicket(ticketDTO);
         ticket = ticketRepository.save(ticket);
@@ -44,6 +54,13 @@ public class TicketService {
         return ticket.getId();
     }
 
+    /**
+     * Actualizeaza un bilet cu un id dat cu noi valori
+     * @param ticketDTO noile valori puse in bilet
+     * @param id id-ul biletului ce va fi actualizat
+     * @return id-ul biletului actualizat
+     * @throws Exception
+     */
     public Long update(Long id, TicketDTO ticketDTO) throws Exception {
         //Ticket ticket = TicketMapper.toTicket(ticketDTO);
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
@@ -58,6 +75,12 @@ public class TicketService {
         }
     }
 
+    /**
+     * Sterge un bilet cu id dat
+     * @param id id-ul biletului ce va fi sters
+     * @return id-ul biletului sters
+     * @throws Exception
+     */
     public Long delete(Long id) throws Exception {
         //Ticket ticket = TicketMapper.toTicket(ticketDTO);
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);

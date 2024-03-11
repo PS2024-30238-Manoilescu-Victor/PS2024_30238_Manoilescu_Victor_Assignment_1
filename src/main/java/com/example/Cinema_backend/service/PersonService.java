@@ -36,6 +36,10 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
+    /**
+     * Functie care pune toate comenzile intr-o lista
+     * @return Lista de comenzi
+     */
     public List<PersonDTO> findPersons() {
         List<Person> personList = personRepository.findAll();
         return personList.stream()
@@ -43,6 +47,12 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Functie care returneaza o persoana cu un id dat
+     * @param id id-ul persoanei returnate
+     * @return persoana cu id-ul dat
+     * @throws Exception
+     */
     public PersonDTO findPersonById(Long id) throws Exception {
         Optional<Person> personOptional = personRepository.findById(id);
         if (!personOptional.isPresent()) {
@@ -52,7 +62,11 @@ public class PersonService {
         return PersonMapper.fromPerson(personOptional.get());
     }
 
-
+    /**
+     * Insereaza o noua persoana
+     * @param personDTO persoana ce va fi inserata
+     * @return id-ul noii persoane inserate
+     */
     public Long insert(PersonDTO personDTO) {
         Person person = PersonMapper.toPerson(personDTO);
         person = personRepository.save(person);
@@ -60,6 +74,13 @@ public class PersonService {
         return person.getId();
     }
 
+    /**
+     * Actualizeaza o persoana cu un id dat cu noi valori
+     * @param personDTO noile valori puse in persoana
+     * @param id id-ul persoanei ce va fi actualizata
+     * @return id-ul persoanei actualizate
+     * @throws Exception
+     */
     public Long update(Long id, PersonDTO personDTO) throws Exception {
         //Person person = PersonMapper.toPerson(personDTO);
         Optional<Person> personOptional = personRepository.findById(id);
@@ -74,6 +95,12 @@ public class PersonService {
         }
     }
 
+    /**
+     * Sterge o persoana cu id dat
+     * @param id id-ul persoanei ce va fi sterse
+     * @return id-ul persoanei sterse
+     * @throws Exception
+     */
     public Long delete(Long id) throws Exception {
         //Person person = PersonMapper.toPerson(personDTO);
         Optional<Person> personOptional = personRepository.findById(id);
@@ -86,7 +113,13 @@ public class PersonService {
         }
     }
 
-
+    /**
+     * Plaseaza o noua comanda ce contine un tichet
+     * @param idPerson persoana care v-a detine comanda
+     * @param idTicket id-ul tichetului continut de comanda
+     * @return id-ul persoanei ce a plasat noua comanda
+     * @throws Exception
+     */
     public Long createOrder(Long idPerson,Long idTicket) throws Exception {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

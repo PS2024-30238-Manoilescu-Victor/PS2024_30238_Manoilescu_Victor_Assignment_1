@@ -30,7 +30,7 @@ public class Orders {
     private Person person;
 
     @ManyToMany
-    @JsonIgnore
+    //@JsonIgnore
     @JoinTable(
             name = "ordered_Tickets",
             joinColumns = @JoinColumn(name = "order_id"),

@@ -29,12 +29,26 @@ public class PersonController {
         this.personService = personService;
     }
 
+    /**
+     * Functie care selecteaza toate persoanele
+     * @return O lista de comenzi
+     */
     @GetMapping("/selectAll")
     public ResponseEntity<List<PersonDTO>> getPersons() {
         List<PersonDTO> dtos = personService.findPersons();
+        int nr = dtos.size();
+        if(nr == 1)
+            log.info(nr + " Person was found.");
+        else
+            log.info(nr + " People were found.");
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+    /**
+     * cauta o persoana in functie de id-ul acesteia
+     * @param id id-ul persoanei cautate
+     * @return persoana cu id-ul selectat
+     */
     @GetMapping("/{id}")
     public ResponseEntity<PersonDTO> getPersonById(@PathVariable Long id) {
         try {
@@ -43,22 +57,36 @@ public class PersonController {
             return new ResponseEntity<>(dtos, HttpStatus.OK);
         }
         catch (Exception e) {
-            log.error(e.getMessage());
+            log.info("User with id \"" + id + "\" was not found! "+ e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
+    /**
+     * Insereaza o noua persoana
+     * @param personDTO persoana ce va fi inserata
+     * @return id-ul noii persoane inserate
+     */
     @PostMapping()
     public ResponseEntity<Long> insertPerson(@Validated @RequestBody PersonDTO personDTO) {
         try {
             Long personID = personService.insert(personDTO);
+            log.info("Person with id \"" + personID + "\" was inserted!");
         return new ResponseEntity<>(personID, HttpStatus.CREATED);
         }
         catch (Exception e) {
+            log.info("Person was not inserted! " + e.getMessage());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
 
+
+    /**
+     * Actualizeaza o persoana cu un id dat cu noi valori
+     * @param personDTO noile valori puse pentru persoana
+     * @param id id-ul persoanei ce va fi actualizata
+     * @return id-ul persoanei actualizate
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Long> updatePerson(@Validated @RequestBody PersonDTO personDTO, @PathVariable Long id)
     {
@@ -73,6 +101,12 @@ public class PersonController {
         }
     }
 
+    /**
+     * Plaseaza o noua comanda ce contine un tichet
+     * @param idPerson persoana care v-a detine comanda
+     * @param idTicket id-ul tichetului continut de comanda
+     * @return id-ul persoanei ce a plasat noua comanda
+     */
     @PutMapping("createOrder/{idPerson}/{idTicket}")
     public ResponseEntity<Long> createOrder(@PathVariable Long idPerson, @PathVariable Long idTicket)
     {
@@ -88,6 +122,11 @@ public class PersonController {
     }
 
 
+    /**
+     * Sterge o persoana cu id dat
+     * @param id id-ul persoanei ce va fi sterse
+     * @return id-ul persoanei sterse
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deletePerson(@PathVariable Long id)
     {

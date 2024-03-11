@@ -32,7 +32,7 @@ public class Ticket {
     private String ora;
     @Column
     private Integer nrTickets;
-    @ManyToMany(mappedBy = "tickets")
+    @ManyToMany(mappedBy = "tickets", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<Orders> orders;
 

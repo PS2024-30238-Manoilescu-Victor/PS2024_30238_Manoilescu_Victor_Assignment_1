@@ -29,6 +29,10 @@ public class OrdersService {
         this.ordersRepositry = ordersRepositry;
     }
 
+    /**
+     * Functie care pune toate comenzile intr-o lista
+     * @return Lista de comenzi
+     */
     public List<OrdersDTO> findOrders(){
         List<Orders> ordersList = ordersRepositry.findAll();
         return ordersList.stream()
@@ -36,6 +40,12 @@ public class OrdersService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Functie care returneaza o comanda cu un id dat
+     * @param id id-ul comenzii returnate
+     * @return comanda cu id-ul dat
+     * @throws Exception
+     */
     public OrdersDTO findOrderById(Long id) throws Exception
     {
         Optional<Orders> orderOptional = ordersRepositry.findById(id);
@@ -46,6 +56,11 @@ public class OrdersService {
         return OrdersMapper.fromOrder(orderOptional.get());
     }
 
+    /**
+     * Insereaza o noua comanda
+     * @param ordersDTO comanda ce va fi inserata
+     * @return id-ul noii comenzi inserate
+     */
     public Long insert(OrdersDTO ordersDTO)
     {
         Orders orders = OrdersMapper.toOrder(ordersDTO);
@@ -53,6 +68,13 @@ public class OrdersService {
         return orders.getId();
     }
 
+    /**
+     * Insereaza o comanda la care adauga un tichet cu id-ul dat
+     * @param ordersDTO comanda de baza ce va fi inserata
+     * @param idTicket id-ul tichetului ce va fi adaugat
+     * @return id-ul noii comenzi inserate
+     * @throws Exception
+     */
     public Long insert2(OrdersDTO ordersDTO,Long idTicket) throws Exception
     {
         Orders orders = OrdersMapper.toOrder(ordersDTO);
@@ -75,6 +97,13 @@ public class OrdersService {
         }
     }
 
+    /**
+     * Actualizeaza o comanda cu un id dat cu noi valori
+     * @param ordersDTO noile valori puse in comanda
+     * @param id id-ul comenzii ce va fi actualizata
+     * @return id-ul comenzii actualizate
+     * @throws Exception
+     */
     public Long update(Long id, OrdersDTO ordersDTO) throws Exception
     {
         Optional<Orders> ordersOptional = ordersRepositry.findById(id);
@@ -89,6 +118,12 @@ public class OrdersService {
         }
     }
 
+    /**
+     * Sterge o comanda cu id dat
+     * @param id id-ul comenzii ce va fi sterse
+     * @return id-ul comenzii sterse
+     * @throws Exception
+     */
     public Long delete(Long id) throws Exception {
         Optional<Orders> orderOptional = ordersRepositry.findById(id);
         if (orderOptional.isPresent()) {
@@ -100,6 +135,13 @@ public class OrdersService {
         }
     }
 
+    /**
+     * Adauga un bilet la comanda cu id-ul dat
+     * @param idOrder id-ul comenzii in care se va adauga tichetul
+     * @param idTicket id-ul biletului ce va fi adaugat la comanda
+     * @return id-ul comenzii
+     * @throws Exception
+     */
     public Long addTicket(Long idOrder, Long idTicket) throws Exception
     {
         Optional<Orders> ordersOptional = ordersRepositry.findById(idOrder);
