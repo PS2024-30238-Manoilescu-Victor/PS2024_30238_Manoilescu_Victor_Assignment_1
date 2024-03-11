@@ -1,0 +1,7 @@
+com.example.Cinema_backend
+com.example.Cinema_backend.controller
+com.example.Cinema_backend.dto
+com.example.Cinema_backend.entity
+com.example.Cinema_backend.mapper
+com.example.Cinema_backend.repository
+com.example.Cinema_backend.service
